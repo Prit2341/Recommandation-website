@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Recommendation</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 24px;
+            margin: 0 0 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding:10px;
+            margin-left: -8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Movie Recommendation</h1>
+    </header>
+    <div class="container">
+        <label for="movieTitle">Enter Movie Title:</label>
+        <input type="text" id="movieTitle" placeholder="FastX">
+        <button onclick="getRecommendations()">Get Recommendations</button>
+        <div id="result"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function getRecommendations() {
+        var movieTitle = document.getElementById("movieTitle").value;
+        var url = "http://localhost:5000/get_recommendations?movie_title=" + movieTitle;
+        
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json', // Ensure that the response is treated as JSON
+            success: function(data) {
+                var resultDiv = document.getElementById("result");
+                resultDiv.innerHTML = "<h2>Recommended Movies:</h2>";
+                
+                // Loop through the recommendations and display movie names and ratings
+                for (var i = 0; i < data.length; i++) {
+                    var movie = data[i];
+                    resultDiv.innerHTML += "<b>Original Title:</b> " + movie["Original Title"] + "<br>";
+                    
+                }
+            },
+            error: function() {
+                var resultDiv = document.getElementById("result");
+                resultDiv.innerHTML = "Error fetching recommendations.";
+            }
+        });
+    }
+
+    </script>
+</body>
+</html>
