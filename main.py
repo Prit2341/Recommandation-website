@@ -42,6 +42,6 @@ def get_recommendations(movie_title, cosine_sim=cosine_sim, num_recommendations=
 
 # let try out
 
-input_movie = 'Spider-Man: Across the Spider-Verse'
-recommendations = get_recommendations(input_movie)
-print(recommendations)
+# input_movie = 'Spider-Man: Across the Spider-Verse'
+# recommendations = get_recommendations(input_movie)
+# print(recommendations)
